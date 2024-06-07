@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}base{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="navdiv">
+          <ul>
+            <li><a href="{{ url_for('views.inscription') }}">Inscription</a></li>
+            <li><a href="{{ url_for('views.formation') }}">Formation</a></li>
+            <li><a href="{{ url_for('views.groupe') }}">Groupe</a></li>
+            <li><a href="{{ url_for('views.seance') }}">Seance</a></li>
+            <li><a href="{{ url_for('views.etudiant') }}">Etudiant</a></li>
+            <li><a href="{{ url_for('views.home') }}">home</a></li>
+          </ul>
+        </div>
+      </nav> 
+    </header>
+
+    <main>
+      {% block content %} {% endblock %}
+    </main>
+
+  </body>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</html>

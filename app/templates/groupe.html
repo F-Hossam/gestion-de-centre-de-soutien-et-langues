@@ -1,0 +1,57 @@
+{% extends "base.html" %} {% block title %}Groupe{% endblock %}
+{% block content %}
+
+<div class="etudiant-form-list">
+    <h2>Liste Des Groupes</h2>
+    <ul class="etudiant-list-items">
+        {% for groupe, formation, seances in data%}{% set j=loop.index %}
+        <li>
+            <p class="etudiant-item-li" id="groupe{{j}}">
+                Groupe {{ groupe[0] }}
+            </p>
+            <p class="etudiant-item-li">{{ formation[0] }}</p>
+            <p class="etudiant-item-li">{{ formation[1] }}</p>
+            <div class="popup" id="groupe-about-{{j}}">
+                <div class="overlay"></div>
+                <div class="content">
+                  <div class="close-btn" onclick="toggleGroupe({{j}})">&times;</div>
+                  <div class="formation-selection-etudiant">
+                    <form class="innerform" method="POST" name="innerformgroupe" id="innerform-group-{{j}}">
+
+                      <select name="seance" id="seance{{j}}">
+                        {% for seance in seances %}
+                          <option value="{{seance[0][0]}} {{seance[1][0]}}">{{seance[0][0]}} {{seance[1][0]}}</option>
+                        {% endfor %}
+                      </select>
+
+                      <input
+                        type="hidden"
+                        name="groupe_code"
+                        value="{{groupe[0]}}"
+                      />
+
+                      <button
+                        type="submit"
+                        class="edit-btn-item"
+                        id="add-seance-{{j}}"
+                        onclick="activeEdit({{j}})"
+                      >
+                        Ajouter
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+        
+              <button
+                onclick="toggleGroupe({{j}})"
+                type="button"
+                class="edit-btn-item"
+                id="edit-groupe-{{j}}"
+              >edit</button>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

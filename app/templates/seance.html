@@ -1,0 +1,98 @@
+{% extends "base.html" %} {% block title %}Seance{% endblock %} {% block content
+%}
+
+<div class="etudiant-form-list">
+  <h2>Liste Des Seances</h2>
+  <ul class="etudiant-list-items">
+    {% for seance, formation, etudiants, soldes, m in data%}{% set j =
+    loop.index %}
+    <li>
+      <p class="etudiant-item-li" id="groupe{{j}}">Seance {{ seance[0] }}</p>
+      <p class="etudiant-item-li">Groupe {{ seance[1] }}</p>
+      <p class="etudiant-item-li">{{ formation }}</p>
+      <div class="popup-seance" id="seance-about-{{j}}">
+        <div class="overlay"></div>
+        <div class="content-seance">
+          <div class="close-btn" onclick="toggleSeance({{j}})">&times;</div>
+          <div class="formation-selection-seance">
+            <form
+              class="form-seance"
+              method="POST"
+              name="form-seance"
+              id="form-seance-{{j}}"
+            >
+              {% for etudiant in etudiants %} {% set i = loop.index0 %} {% set
+              solde = soldes[i][0] %}{% set m_id = m[i] %}
+              <div
+                class="innerformseance"
+                name="innerformseance"
+                id="innerform-seance-{{m_id}}"
+              >
+                <p class="etudiant-item-li">
+                  {{ etudiant[1] }} {{ etudiant[0] }}
+                </p>
+                <p class="etudiant-item-li" id="solde-etudiant-{{m_id}}">
+                  {{ solde }}
+                </p>
+                
+                <input
+                  type="hidden"
+                  name="etudiant-name-{{m_id}}"
+                  value="{{ etudiant[1] }} {{etudiant[0]}}"
+                />
+                <input type="hidden" name="num-seance" value="{{j}}" />
+                <input type="hidden" name="first-etudiant-index" value="{{ m_id }}"/>
+                <input
+                  type="hidden"
+                  name="groupe-loop"
+                  value="{{loop.length}}"
+                />
+                <input
+                  type="hidden"
+                  name="etudiant-present-{{m_id}}"
+                  id="etudiant-present-{{m_id}}"
+                  value="0"
+                />
+                <input type="hidden" name="payer-etudiant-{{m_id}}" id="payer-etudiant-{{m_id}}" value="0" />
+                <button
+                  type="button"
+                  class="present-btn-item"
+                  id="present-seance-{{m_id}}"
+                  onclick="toggleAbsent({{m_id}})"
+                >
+                  Present
+                </button>
+
+                <button
+                  type="button"
+                  class="payer-btn-item"
+                  id="payer-seance-{{m_id}}"
+                  onclick="togglePayer({{m_id}})"
+                  disabled
+                >
+                  Payer
+                </button>
+              </div>
+              {% endfor %}
+              <button type="submit" class="edit-btn-item" id="save-btn-{{j}}">
+                Save
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <button
+        onclick="toggleSeance({{j}})"
+        type="button"
+        class="edit-btn-item"
+        id="edit-seance-{{j}}"
+      >
+        controler
+      </button>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}

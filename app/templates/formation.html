@@ -1,0 +1,67 @@
+{% extends "base.html" %} {% block title %}Etudiant{% endblock %} {% block
+content %}
+
+<div class="etudiant-form-list">
+  <h2>A Affecter</h2>
+  <ul class="etudiant-list-items">
+    {% for etudiant,formations,niveau in data %} {% set j = loop.index %}
+    <li>
+      <p class="etudiant-item-li" id="etudiant-line-{{loop.index}}">
+        {{ etudiant[0] }} {{ etudiant[1] }}
+      </p>
+      <p class="etudiant-item-li">{{ niveau[0] }}</p>
+      <div class="popup" id="popup-{{j}}">
+        <div class="overlay"></div>
+        <div class="content">
+          <div class="close-btn" onclick="togglePopup({{j}})">&times;</div>
+          <div class="formation-selection-etudiant">
+            <form class="innerform" method="POST" name="innerform" id="innerform-etudiant-{{j}}">
+              <select name="formation" id="formation-{{j}}">
+                {% for formation in formations %}
+                <option value="{{formation[0]}}">{{formation[0]}}</option>
+                {% endfor %}
+              </select>
+
+              <div class="checkbox-selection">
+                <input
+                  type="checkbox"
+                  id="test-check"
+                  name="test"
+                  value="true"
+                />
+                <label for="test" class="test-check">Test?</label><br />
+              </div>
+              <input
+                type="hidden"
+                name="etudiant_name"
+                value="{{etudiant[0]}} {{etudiant[1]}}"
+              />
+              <button
+                type="submit"
+                class="edit-btn-item"
+                id="add-line-{{j}}"
+                onclick="toggleChoice()"
+              >
+                Ajouter
+              </button>
+            </form>
+          </div>
+          <hr />
+          <p>A payer: <span id="argent-etudiant-{{j}}">0</span> DH</p>
+        </div>
+      </div>
+
+      <button
+        onclick="togglePopup({{j}})"
+        type="button"
+        class="edit-btn-item"
+        id="edit-line-{{j}}"
+      >
+        edit
+      </button>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}

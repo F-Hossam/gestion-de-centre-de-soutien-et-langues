@@ -1,0 +1,42 @@
+{% extends "base.html" %} 
+{% block title %}Inscription{% endblock %}
+{% block content %}
+
+<h1>Nouveau Etudiant</h1>
+<form method="post" id="inscription-form">
+  <label for="prenom">Prenom:</label>
+  <input
+    class="input-text"
+    type="text"
+    id="prenom"
+    name="prenom"
+    placeholder="Enter prenom"
+  />
+  <label for="nom">Nom:</label>
+  <input
+    class="input-text"
+    type="text"
+    id="nom"
+    name="nom"
+    placeholder="Enter nom"
+  />
+  <label for="datenaissance">Date de Naissance:</label>
+  <input
+    class="input-date"
+    type="date"
+    id="datenaissance"
+    name="datenaissance"
+    placeholder="Enter nom"
+  />
+  <label for="niveau">Niveau:</label>
+  <select class="select-niveau" name="niveau" id="niveau">
+    <option value="2Bac">2Bac</option>
+    <option value="1Bac">1Bac</option>
+    <option value="TC">TC</option>
+    <option value="3Col">3Col</option>
+    <option value="autre">autre</option>
+  </select>
+  <button type="submit">Ajouter</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %} {% block title %}Enseignant{% endblock %}
+{% block content %}
+
+<div class="etudiant-form-list">
+    <h2>Liste Des Etudiants</h2>
+    <ul class="etudiant-list-items">
+        {% for etudiant,formation_groupes in data%}{% set j=loop.index %}
+        <li>
+            <p class="etudiant-item-li" id="etudiant-{{j}}">
+                {{ etudiant[0] }} {{ etudiant[1] }}
+            </p>
+            <p class="etudiant-item-li" id="etudiant-{{j}}">
+              {{ etudiant[2] }}
+          </p>
+            <div class="popup" id="popup-about-{{j}}">
+                <div class="overlay"></div>
+                <div class="content">
+                  <div class="close-btn" onclick="togglePopupAbout({{j}})">&times;</div>
+                  <div class="formation-selection-etudiant">
+                    <div class="etudiant-info-list">
+                      <ul>
+                        {% for formation_grp in formation_groupes %}
+                        <li>
+                          <div  class="etudiant-item-li">
+                            <p class="etudiant-item-li">
+                              {{ formation_grp[0] }}
+                            </p>
+                            <p class="etudiant-item-li">
+                              Groupe {{ formation_grp[1] }}
+                            </p>
+                          </div>
+                        </li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button
+                onclick="togglePopupAbout({{j}})"
+                type="button"
+                class="edit-btn-item"
+              >
+                about
+              </button>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
